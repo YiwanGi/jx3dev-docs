@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "JX3DEV-开发文档",
     "main": "index.js",
+    "type": "module",
     "scripts": {
         "docs:dev": "vuepress dev docs",
         "docs:build": "vuepress build docs"
