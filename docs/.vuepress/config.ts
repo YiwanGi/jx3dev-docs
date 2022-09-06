@@ -26,7 +26,7 @@ export default defineUserConfig({
         sidebarDepth: 2, // 设置根据页面标题自动生成的侧边栏的最大深度。
         editLink: true, // 是否启用 编辑此页 链接。
         editLinkText: '编辑此页', // 编辑此页 链接的文字。
-        editLinkPattern: ':repo/-/edit/:branch/:path', // 编辑此页 链接的 Pattern 。
+        editLinkPattern: ':repo/edit/:branch/:path', // 编辑此页 链接的 Pattern 。
         docsRepo: 'YiwanGi/jx3dev-docs', // 文档源文件的仓库 URL 。
         docsBranch: 'main', // 文档源文件的仓库分支。
         docsDir: 'docs', // 文档源文件存放在仓库中的目录名。
