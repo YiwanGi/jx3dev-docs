@@ -1,6 +1,6 @@
 # jx3dev-docs
 
-此仓库为 [JX3DEV](https://www.jx3dev.com/) 的文档。
+此仓库为 [JX3DEV](https://www.jx3dev.com/) 的开发文档。
 
 查看文档：<https://docs.jx3dev.com/>
 
@@ -20,3 +20,7 @@ yarn install
 yarn docs:dev
 # 开始写作
 ```
+
+## License
+
+[CC-BY-SA-4.0 license](LICENSE)

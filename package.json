@@ -1,16 +1,15 @@
 {
     "name": "jx3dev-docs",
     "version": "1.0.0",
-    "description": "JX3DEV-开发文档",
+    "description": "JX3DEV - 开发文档",
     "main": "index.js",
     "scripts": {
         "docs:dev": "vuepress dev docs",
         "docs:build": "vuepress build docs"
     },
     "keywords": [
-        "剑网三",
-        "剑网3",
-        "JX3DEV"
+        "jx3dev",
+        "jx3dev-docs"
     ],
     "author": "YiwanGi <1634431551@qq.com>",
     "license": "CC-BY-SA-4.0",
