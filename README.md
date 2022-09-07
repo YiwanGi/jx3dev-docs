@@ -14,10 +14,10 @@ git clone https://github.com/YiwanGi/jx3dev-docs
 
 cd jx3dev-docs
 
-yarn install
+npm install
 # 安装依赖
 
-yarn docs:dev
+npm run docs:build
 # 开始写作
 ```
 
