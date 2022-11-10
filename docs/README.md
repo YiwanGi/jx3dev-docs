@@ -4,24 +4,6 @@ home: true
 heroImage: /favicon.ico
 heroImageDark: /favicon.ico
 
-actions:
-
-- text: Register JX3DEV Account
-  link: /Unlimited.md#user_register
-  type: secondary
-- text: Join JX3DEV QQ Group
-  link: https://jq.qq.com/?_wv=1027&k=IbHRPKFE
-  type: secondary
-
-features:
-
-- title: 项目特性1
-  details: 项目特性1项目特性1项目特性1项目特性1项目特性1项目特性1项目特性1项目特性1项目特性1项目特性1项目特性1项目特性1项目特性1项目特性1项目特性1项目特性1项目特性1项目特性1
-- title: 项目特性2
-  details: 项目特性2项目特性2项目特性2项目特性2项目特性2项目特性2项目特性2项目特性2项目特性2项目特性2项目特性2项目特性2项目特性2项目特性2项目特性2项目特性2项目特性2项目特性2
-- title: 项目特性3
-  details: 项目特性3项目特性3项目特性3项目特性3项目特性3项目特性3项目特性3项目特性3项目特性3项目特性3项目特性3项目特性3项目特性3项目特性3项目特性3项目特性3项目特性3项目特性3
-
 footer: CC-BY-SA-4.0 license | Copyright © 2022 JX3DEV Team
 
 ---

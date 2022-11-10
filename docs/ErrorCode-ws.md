@@ -5,32 +5,34 @@
 | 1402         |                   | Dev token to be paid         | dev-token 待付款 |      |
 | 1400         |                   | JSON format parsing failed   | JSON 格式解析失败   |      |
 | 1404         |                   | API interface does not exist | API 接口不存在     |      |
-|              | -9998             | Forced offline               | 被迫离线          |  √   |
-|              | -9999             | Other error                  | 其他错误          |  √   |
+|              | -9000             | Forced offline               | 被迫离线          |  √   |
+|              | -9999             | Other errors                 | 其他错误          |  √   |
 |              | -10000            | Unknown error                | 未知错误          |      |
 |              | -10001            | Illegal request I            | 非法请求 I        |      |
 |              | -10002            | Illegal request II           | 非法请求 II       |      |
 |              | -10003            | Illegal request III          | 非法请求 III      |      |
-|              | -10004            | Interface offline            | 接口下线          |      |
-|              | -10005            | Interface maintenance        | 接口维护          |      |
-|              | -10006            | Unauthorized call            | 无权限调用         |      |
-|              | -10007            | Call restricted              | 调用受限制         |      |
-|              | -10008            | Data does not exist          | 数据不存在         |      |
+|              | -10004            | Interface maintenance        | 接口维护          |      |
+|              | -10005            | Interface offline            | 接口下线          |      |
+|              | -10006            | Upstream fault               | 上游故障          |      |
+|              | -10007            | Unauthorized call            | 无权限调用         |      |
+|              | -10008            | Call is pre restricted       | 调用受限制         |      |
+|              | -10009            | Data does not exist          | 数据不存在         |      |
 |              | -10010            | ...                          | ...           |      |
 
 ##### 注意：
 
-- 订阅推送事件 `code状态码` 为 1200 `msg` 为 [事件名称](Subscribe.md)
-- 订阅推送事件以及错误断开连接不会携带或返回 `mark` 字段
+- 推送事件以及断开连接不会携带或返回 `mark` 字段
+- 订阅推送事件 `code状态码` 为 1201 `msg` 为 [事件名称](Subscribe.md)
+- 系统推送事件 `code状态码` 为 1202 `msg` 恒定为 `JX3DEV`
 
-###### 除以上 `code状态码` 为 14xx / 1200 的 其余情况无论操作成功与否 `code状态码` 均为 200
+###### 除以上 `code状态码` 为 14xx / 1201 / 1202 的 其余情况无论操作成功与否 `code状态码` 均为 1200
 
-### 发起连接
+### 建立连接
 
 ##### 你应当建立心跳检测(ping==><==pong)以及断线重连机制。
 
 - 心跳检测仅限于客户端发送ping，服务端回应pong，应为 string / opcode 。
-- GET参数或请求头中的 Dev-Token 为你的 32位 devToken
+- GET参数或请求头中的 Dev-Token 为你的 16位 devToken
 - Dev-Token 校验优先级：`[get > header]`
 
 ``` http request
@@ -54,10 +56,12 @@ Sec-WebSocket-Version: 13
 
 ##### 出现以下情况，服务器将直接拒绝连接。
 
+- 请求方法不被支持
+- 请求路径不被支持
 - `dev-token` 未提供
 - `dev-token` 已失效
-- `dev-token` 对应账户正在接受检查
-- `dev-token` 对应账户未获得接入许可
+- `dev-token` 对应用户未获得许可
+- `dev-token` 对应用户正在接受检查
 
 ### 调用API接口
 
@@ -65,7 +69,7 @@ Sec-WebSocket-Version: 13
 
 ###### 这里的 controller|action 参数用于指定要调用的 API，具体参考 [API](APIinterface.md)；params 用于传入参数，你必须提供 ts 参数且与服务器差值应为 ±5 分钟，否则将被视为非法请求；`mark` 参数是可选的，类似于 [JSON RPC](https://www.jsonrpc.org/specification) 的 id 字段，用于唯一标识一次请求，可以是任何类型的数据，服务器将会在调用结果中原样返回。
 
-###### <获取API列表> 调用 [数据接口](APIinterface.md) 的 `index` 接口
+###### 调用 [数据接口](APIinterface.md) 的 `index` 接口 <获取API列表>
 
 ``` json
 {
@@ -82,7 +86,7 @@ Sec-WebSocket-Version: 13
 
 ``` json
 {
-    "code": 200,
+    "code": 1200,
     "result": {
         "data": {
             "controller": "api",
@@ -101,7 +105,7 @@ Sec-WebSocket-Version: 13
 
 ``` json
 {
-    "code": 200,
+    "code": 1200,
     "result": {
         "errorCode": -10000,
         "errorExtra": {

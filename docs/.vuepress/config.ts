@@ -6,7 +6,7 @@ export default defineUserConfig({
     base: '/', // 部署站点的基础路径。
     lang: 'zh-CN', // 站点的语言。
     title: 'JX3DEV - 开发文档', // 站点的标题。
-    description: '孤锋立影，锋芒在望！《剑网3》十三周年庆典狂欢！全新门派“刀宗”正式曝光，全新等级、震撼剧情及诸多新奇玩法与你相约年度资料片！', // 站点的描述。
+    description: 'JX3DEV用户交流群：110001110011011100001', // 站点的描述。
     head: [
         ['link', {rel: 'icon', href: '/favicon.ico'}]
     ], // 在最终渲染出的 HTML 的 <head> 标签内加入的额外标签。
@@ -18,6 +18,8 @@ export default defineUserConfig({
         colorModeSwitch: true, // 是否启用切换颜色模式的功能。
         home: '/', // 首页的路径。
         navbar: [
+            {text: 'Trades', link: 'https://www.jx3dev.com/?qq=1100001011010110111001000111111&hex=binary'},
+            {text: '特别说明：由于项目未正式上线，仅供测试使用，API接口随时可能会进行调整。(请使用 test.jx3dev.com 接入服务)', link: '#'},
             {text: 'Dev必读', children: ['/ErrorCode-ws.md', '/ErrorCode-http.md']},
             {text: 'Api接口', children: ['/Unlimited.md', '/APIinterface.md', '/Template.md']},
             {text: 'See更多', children: ['/Subscribe.md', '/Smsdirect.md', '/Demonstration.md', '/Customized.md']},
