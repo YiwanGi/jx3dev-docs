@@ -17,7 +17,14 @@ export default defineUserConfig({
         colorMode: 'auto', // 默认颜色模式。
         colorModeSwitch: true, // 是否启用切换颜色模式的功能。
         home: '/', // 首页的路径。
-        //navbar: [], // 导航栏配置。
+        navbar: [
+            {text: 'Dev必读', children: ['/ErrorCode-ws.md', '/ErrorCode-http.md']},
+            {text: 'Api接口', children: ['/Unlimited.md', '/APIinterface.md', '/Template.md']},
+            {text: 'See更多', children: ['/Subscribe.md', '/Smsdirect.md', '/Demonstration.md', '/Customized.md']},
+            {text: '常见问题', link: '/FAQ.md'},
+            {text: '更新日志', link: '/LOG.md'},
+            {text: '关于我们', link: '/About.md'}
+        ], // 导航栏配置。
         logo: '/favicon.ico', // Logo 图片的 URL。
         logoDark: '/favicon.ico', // 在夜间模式中使用的 Logo 图片的 URL。
         repo: 'YiwanGi/jx3dev-docs', // 项目仓库的 URL。
