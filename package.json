@@ -14,8 +14,8 @@
     "author": "YiwanGi <1634431551@qq.com>",
     "license": "CC-BY-SA-4.0",
     "devDependencies": {
-        "@vuepress/plugin-search": "^2.0.0-beta.50",
-        "vuepress": "^2.0.0-beta.50"
+        "@vuepress/plugin-search": "^2.0.0-beta.51",
+        "vuepress": "^2.0.0-beta.51"
     },
     "repository": "https://github.com/YiwanGi/jx3dev-docs.git"
 }
