@@ -22,14 +22,20 @@
 - [`get_ornament_data` 获取装饰数据](#get_ornament_data)
 - [`get_spectrum_data` 获取器物谱数据](#get_spectrum_data)
 - [`get_career_macro` 获取职业宏命令](#get_career_macro)
-- [`get_career_equip` 获取职业配装](#get_career_equip)
+- [`get_career_equip` 获取职业配装 <sup>`dev`</sup>](#get_career_equip)
 - [`get_exam_answer` 获取科举答案](#get_exam_answer)
-- [`get_garden_flower` 获取家园花价 <sup>`dev`</sup>](#get_garden_flower)
+- [`get_garden_flower` 获取家园花价](#get_garden_flower)
 - [`get_market_prices` 获取集市物价 <sup>`dev`</sup>](#get_market_prices)
 - [`get_school_tactics` 获取门派阵法](#get_school_tactics)
 - [`get_jjc_ranking_list` 获取JJC排行 <sup>`vip`</sup>](#get_jjc_ranking_list)
 - [`get_jjc_statistics_list` 获取JJC统计 <sup>`vip`</sup>](#get_jjc_statistics_list)
 - [`get_seniority_ranking_list` 获取资历排行 <sup>`vip`</sup>](#get_seniority_ranking_list)
+- [`get_game_role_info` 获取角色信息 <sup>`vip`</sup>](#get_game_role_info)
+- [`get_game_role_equip` 获取角色装备 <sup>`vip`</sup>](#get_game_role_equip)
+- [`get_game_role_combat` 获取角色战绩 <sup>`vip`</sup>](#get_game_role_combat)
+- [`get_game_role_dungoen` 获取角色团本记录 <sup>`vip`</sup>](#get_game_role_dungoen)
+- [`get_game_role_achieve` 获取角色成就数据 <sup>`vip`</sup>](#get_game_role_achieve)
+- [`get_game_role_serendipity` 获取角色奇遇数据 <sup>`vip`</sup>](#get_game_role_serendipity)
 
 ### `push_subscribe`
 
@@ -386,6 +392,101 @@
 |--------------|--------|------|
 | `produceMap` | string | 产出地图 |
 
+### `get_career_macro`
+
+##### 获取职业宏数据
+
+#### 参数
+
+| 字段名      | 数据类型   | 默认值 | 说明              | 必须  |
+|----------|--------|-----|-----------------|:---:|
+| `xingfa` | string | -   | 心法名称(严格.不含治疗心法) |  √  |
+
+#### 响应数据
+
+| 字段名     | 数据类型                   | 说明  |
+|---------|------------------------|-----|
+| `list`  | array[] <sup>`1`</sup> | 列表  |
+| `count` | int                    | 计数  |
+
+###### list <sup>`1`</sup>
+
+| 字段名         | 数据类型                 | 说明   |
+|-------------|----------------------|------|
+| `school`    | string               | 门派名称 |
+| `xingfa`    | string               | 心法名称 |
+| `macroInfo` | array <sup>`2`</sup> | 宏信息  |
+
+###### macroInfo <sup>`2`</sup>
+
+| 字段名        | 数据类型                 | 说明   |
+|------------|----------------------|------|
+| `text`     | string               | 宏内容  |
+| `qixue`    | array <sup>`3`</sup> | 配套奇穴 |
+| `edition`  | string               | 赛季版本 |
+| `explain`  | string               | 额外说明 |
+
+###### qixue <sup>`3`</sup>
+
+| 字段名   | 数据类型                 | 说明   |
+|-------|----------------------|------|
+| `txt` | string               | 奇穴文本 |
+| `box` | array <sup>`4`</sup> | 附加信息 |
+
+###### box <sup>`4`</sup>
+
+###### 附加信息参见 [JX3BOX 奇穴模拟器](https://www.jx3box.com/app/talent/)
+
+| 字段名        | 数据类型   | 说明   |
+|------------|--------|------|
+| `version`  | string | 数据版本 |
+| `sequence` | string | 数据序列 |
+
+### `get_exam_answer`
+
+##### 获取科举答案
+
+#### 参数
+
+| 字段名       | 数据类型        | 默认值  | 说明                  | 必须  |
+|-----------|-------------|------|---------------------|:---:|
+| `keyword` | string      | -    | 题目关键字(支持拼音首字母,空格占位) |  √  |
+| `limit`   | int(10-200) | `10` | 答案数量                |     |
+
+#### 响应数据
+
+| 字段名     | 数据类型                   | 说明  |
+|---------|------------------------|-----|
+| `list`  | array[] <sup>`1`</sup> | 列表  |
+| `count` | int                    | 计数  |
+
+###### list <sup>`1`</sup>
+
+| 字段名        | 数据类型   | 说明    |
+|------------|--------|-------|
+| `pinyin`   | string | 题目拼音  |
+| `question` | string | 科举题目  |
+| `answer`   | string | 科举答案  |
+
+### `get_garden_flower`
+
+##### 获取家园花价
+
+#### 参数
+
+| 字段名       | 数据类型   | 默认值     | 说明   | 必须  |
+|-----------|--------|---------|------|:---:|
+| `server`  | string | -       | 服务器  |  √  |
+| `flower`  | string | -       | 花种名称 |     |
+| `mapName` | string | -       | 地图名称 |     |
+
+#### 响应数据
+
+| 字段名      | 数据类型                 | 说明   |
+|----------|----------------------|------|
+| `school` | string               | 门派名称 |
+| `xingfa` | string               | 心法名称 |
+
 ### `get_school_tactics`
 
 ##### 获取门派阵法
@@ -508,3 +609,34 @@
 | `roleId`     | int    | 角色数字ID |
 | `school`     | string | 门派名称   |
 | `value`      | int    | 资历点值   |
+
+### `get_game_role_info`
+
+##### 获取角色信息
+
+#### 参数
+
+| 字段名        | 数据类型   | 默认值 | 说明     | 必须  |
+|------------|--------|-----|--------|:---:|
+| `server`   | string | -   | 服务器    |  √  |
+| `roleName` | string | -   | 角色昵称   | ?√  |
+| `roleId`   | int    | -   | 角色数字ID | ?√  |
+
+:::warning
+`roleName` 与 `roleId` 只能传入一个。优先级：`[roleId > roleName]`  
+若使用 `roleName` 获取不到数据，请使用 `roleId` 获取数据。
+:::
+
+#### 响应数据
+
+| 字段名             | 数据类型   | 说明     |
+|-----------------|--------|--------|
+| `gameRegion`    | string | 游戏大区   |
+| `mianServer`    | string | 主服务器   |
+| `roleName`      | string | 角色昵称   |
+| `roleId`        | int    | 角色数字ID |
+| `globalRoleId ` | int    | 全服唯一ID |
+| `school`        | string | 门派名称   |
+| `shape`         | string | 角色体型   |
+| `camp`          | string | 所属阵营   |
+| `bindApp`       | bool   | 绑定推栏   |

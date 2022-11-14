@@ -6,7 +6,6 @@
 | 1400         |                   | JSON format parsing failed   | JSON 格式解析失败   |      |
 | 1404         |                   | API interface does not exist | API 接口不存在     |      |
 |              | -9000             | Forced offline               | 被迫离线          |  √   |
-|              | -9999             | Other errors                 | 其他错误          |  √   |
 |              | -10000            | Unknown error                | 未知错误          |      |
 |              | -10001            | Illegal request I            | 非法请求 I        |      |
 |              | -10002            | Illegal request II           | 非法请求 II       |      |
