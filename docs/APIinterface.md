@@ -22,10 +22,10 @@
 - [`get_ornament_data` 获取装饰数据](#get_ornament_data)
 - [`get_spectrum_data` 获取器物谱数据](#get_spectrum_data)
 - [`get_career_macro` 获取职业宏命令](#get_career_macro)
-- [`get_career_equip` 获取职业配装 <sup>`dev`</sup>](#get_career_equip)
+- [`get_career_equip` 获取职业配装 <sup>`plan`</sup>](#get_career_equip)
 - [`get_exam_answer` 获取科举答案](#get_exam_answer)
-- [`get_garden_flower` 获取家园花价](#get_garden_flower)
-- [`get_market_prices` 获取集市物价 <sup>`dev`</sup>](#get_market_prices)
+- [`get_garden_flower` 获取家园花价 <sup>`dev`</sup>](#get_garden_flower)
+- [`get_market_prices` 获取集市物价 <sup>`plan`</sup>](#get_market_prices)
 - [`get_school_tactics` 获取门派阵法](#get_school_tactics)
 - [`get_jjc_ranking_list` 获取JJC排行 <sup>`vip`</sup>](#get_jjc_ranking_list)
 - [`get_jjc_statistics_list` 获取JJC统计 <sup>`vip`</sup>](#get_jjc_statistics_list)
@@ -386,7 +386,7 @@
 
 ###### list <sup>`1`</sup>
 
-###### 参见 [`get_sand_screenshot` 获取装饰数据](#get_ornament_data) `list` 字段，相比增加以下字段数据。
+###### 参见 [`get_ornament_data` 获取装饰数据](#get_ornament_data) 响应数据 `list` 字段，相比增加以下数据。
 
 | 字段名          | 数据类型   | 说明   |
 |--------------|--------|------|
@@ -616,16 +616,173 @@
 
 #### 参数
 
+| 字段名         | 数据类型   | 默认值     | 说明     | 必须  |
+|-------------|--------|---------|--------|:---:|
+| `server`    | string | -       | 服务器    |  √  |
+| `roleName`  | string | -       | 角色昵称   | ?√  |
+| `roleId`    | int    | -       | 角色数字ID | ?√  |
+| `getStatus` | bool   | `false` | 获取设置状态 |     |
+
+:::warning
+`roleName` 与 `roleId` 至少传入一个。优先级：`[roleId > roleName]`  
+若使用 `roleName` 获取不到数据，请使用 `roleId` 获取数据。
+:::
+
+#### 响应数据
+
+| 字段名             | 数据类型              | 说明     |
+|-----------------|-------------------|--------|
+| `gameRegion`    | string            | 游戏大区   |
+| `mianServer`    | string            | 主服务器   |
+| `roleName`      | string            | 角色昵称   |
+| `roleId`        | int               | 角色数字ID |
+| `globalRoleId ` | int               | 全服唯一ID |
+| `school`        | string            | 门派名称   |
+| `shape`         | string            | 角色体型   |
+| `camp`          | string            | 所属阵营   |
+| `bindApp`       | bool              | 绑定推栏   |
+| `setStatus`     | enum(-2,-1,0,1,2) | 设置状态   |
+
+###### setStatus 字段返回值说明
+
+| 值    | 说明     |
+|------|--------|
+| `-2` | 未绑定推栏  |
+| `-1` | 所有人可见  |
+| `0`  | 未获取状态  |
+| `1`  | 互关好友可见 |
+| `2`  | 仅自己可见  |
+
+### `get_game_role_equip`
+
+##### 获取角色装备
+
+#### 参数
+
+| 字段名         | 数据类型   | 默认值     | 说明     | 必须  |
+|-------------|--------|---------|--------|:---:|
+| `server`    | string | -       | 服务器    |  √  |
+| `roleName`  | string | -       | 角色昵称   |  √  |
+| `getStatus` | bool   | `false` | 获取设置状态 |     |
+
+#### 响应数据
+
+###### 参见 [`get_game_role_info` 获取角色信息](#get_game_role_info) 响应数据，相比增加以下数据。
+
+| 字段名         | 数据类型                   | 说明   |
+|-------------|------------------------|------|
+| `level`     | int                    | 角色等级 |
+| `xingfa`    | string                 | 心法名称 |
+| `equipList` | array[] <sup>`1`</sup> | 装备列表 |
+| `qixueList` | array[] <sup>`2`</sup> | 奇穴列表 |
+| `panelData` | array <sup>`3`</sup>   | 面板数据 |
+
+###### equipList <sup>`1`</sup>
+
+:::danger
+太懒了,字段太多不想写)___   请参考返回的JSON.
+:::
+
+###### qixueList <sup>`2`</sup>
+
+| 字段名    | 数据类型   | 说明  |
+|--------|--------|-----|
+| `name` | string | 名称  |
+| `desc` | string | 描述  |
+| `icon` | string | 图例  |
+| `seat` | int    | 位置  |
+
+###### panelData <sup>`3`</sup>
+
+| 字段名     | 数据类型                   | 说明  |
+|---------|------------------------|-----|
+| `score` | string                 | 装分  |
+| `other` | array[] <sup>`4`</sup> | 其他  |
+
+###### other <sup>`4`</sup>
+
+| 字段名       | 数据类型      | 说明  |
+|-----------|-----------|-----|
+| `name`    | string    | 名称  |
+| `percent` | bool      | 百分比 |
+| `value`   | int,float | 值   |
+
+### `get_game_role_combat`
+
+##### 获取角色战绩
+
+#### 参数
+
+| 字段名         | 数据类型                    | 默认值     | 说明     | 必须  |
+|-------------|-------------------------|---------|--------|:---:|
+| `server`    | string                  | -       | 服务器    |  √  |
+| `roleName`  | string                  | -       | 角色昵称   |  √  |
+| `pvpType`   | enum('2v2','3v3','5v5') | -       | 比赛模式   |     |
+| `getStatus` | bool                    | `false` | 获取设置状态 |     |
+
+#### 响应数据
+
+###### 参见 [`get_game_role_info` 获取角色信息](#get_game_role_info) 响应数据，相比增加以下数据。
+
+| 字段名     | 数据类型                   | 说明  |
+|---------|------------------------|-----|
+| `list`  | array[] <sup>`1`</sup> | 列表  |
+| `count` | int                    | 计数  |
+
+###### list <sup>`1`</sup>
+
+| 字段名           | 数据类型                   | 说明  |
+|---------------|------------------------|-----|
+| `type`        | string                 | 模式  |
+| `performance` | array <sup>`2`</sup>   | 统计  |
+| `history`     | array[] <sup>`3`</sup> | 历史  |
+| `season`      | array[] <sup>`4`</sup> | 走势  |
+
+###### performance <sup>`2`</sup>
+
+| 字段名          | 数据类型   | 说明      |
+|--------------|--------|---------|
+| `pvpInt`     | int    | 模式      |
+| `mmr`        | int    | 评分      |
+| `grade`      | int    | 段位      |
+| `ranking`    | string | 排名(百分比) |
+| `winCount`   | int    | 胜利场次    |
+| `mvpCount`   | int    | 最佳场次    |
+| `totalCount` | int    | 总的场次    |
+
+###### history <sup>`3`</sup>
+
+| 字段名         | 数据类型    | 说明   |
+|-------------|---------|------|
+| `pvpInt`    | int     | 模式   |
+| `kungfu`    | string  | 心法名称 |
+| `swimMmr`   | int     | 浮动评分 |
+| `totalMmr`  | int     | 总的评分 |
+| `avgGrade`  | int     | 平均段位 |
+| `startTime` | int(10) | 开始时间 |
+| `endTime`   | int(10) | 结束时间 |
+| `isMvp`     | bool    | 是否最佳 |
+| `isWon`     | bool    | 是否胜利 |
+
+###### season <sup>`4`</sup>
+
+| 字段名         | 数据类型    | 说明   |
+|-------------|---------|------|
+| `pvpInt`    | int     | 模式   |
+| `matchDate` | int(10) | 匹配日期 |
+| `mmr`       | int     | 评分   |
+| `winRate`   | float   | 胜率比  |
+
+### `get_game_role_dungoen`
+
+##### 获取角色团本记录
+
+#### 参数
+
 | 字段名        | 数据类型   | 默认值 | 说明     | 必须  |
 |------------|--------|-----|--------|:---:|
 | `server`   | string | -   | 服务器    |  √  |
-| `roleName` | string | -   | 角色昵称   | ?√  |
-| `roleId`   | int    | -   | 角色数字ID | ?√  |
-
-:::warning
-`roleName` 与 `roleId` 只能传入一个。优先级：`[roleId > roleName]`  
-若使用 `roleName` 获取不到数据，请使用 `roleId` 获取数据。
-:::
+| `roleName` | string | -   | 角色昵称   |  √  |
 
 #### 响应数据
 
@@ -633,10 +790,39 @@
 |-----------------|--------|--------|
 | `gameRegion`    | string | 游戏大区   |
 | `mianServer`    | string | 主服务器   |
-| `roleName`      | string | 角色昵称   |
-| `roleId`        | int    | 角色数字ID |
-| `globalRoleId ` | int    | 全服唯一ID |
-| `school`        | string | 门派名称   |
-| `shape`         | string | 角色体型   |
-| `camp`          | string | 所属阵营   |
-| `bindApp`       | bool   | 绑定推栏   |
+
+### `get_game_role_achieve`
+
+##### 获取角色成就数据
+
+#### 参数
+
+| 字段名        | 数据类型   | 默认值 | 说明     | 必须  |
+|------------|--------|-----|--------|:---:|
+| `server`   | string | -   | 服务器    |  √  |
+| `roleName` | string | -   | 角色昵称   |  √  |
+
+#### 响应数据
+
+| 字段名             | 数据类型   | 说明     |
+|-----------------|--------|--------|
+| `gameRegion`    | string | 游戏大区   |
+| `mianServer`    | string | 主服务器   |
+
+### `get_game_role_serendipity`
+
+##### 获取角色奇遇数据
+
+#### 参数
+
+| 字段名        | 数据类型   | 默认值 | 说明     | 必须  |
+|------------|--------|-----|--------|:---:|
+| `server`   | string | -   | 服务器    |  √  |
+| `roleName` | string | -   | 角色昵称   |  √  |
+
+#### 响应数据
+
+| 字段名             | 数据类型   | 说明     |
+|-----------------|--------|--------|
+| `gameRegion`    | string | 游戏大区   |
+| `mianServer`    | string | 主服务器   |
