@@ -23,6 +23,10 @@
 - [`get_spectrum_data` 获取器物谱数据](#get_spectrum_data)
 - [`get_career_macro` 获取职业宏命令](#get_career_macro)
 - [`get_career_equip` 获取职业配装 <sup>`plan`</sup>](#get_career_equip)
+- [`get_career_elevate` 获取职业小吃小药 <sup>`dev`</sup>](#get_career_elevate)
+- [`get_edition_hasten` 获取版本加速信息 <sup>`dev`</sup>](#get_edition_hasten)
+- [`get_foal_find_point` 获取马驹刷新点位 <sup>`dev`</sup>](#get_foal_find_point)
+- [`get_random_saohua` 获取随机骚话 <sup>`dev`</sup>](#get_random_saohua)
 - [`get_exam_answer` 获取科举答案](#get_exam_answer)
 - [`get_garden_flower` 获取家园花价 <sup>`dev`</sup>](#get_garden_flower)
 - [`get_market_prices` 获取集市物价 <sup>`plan`</sup>](#get_market_prices)
@@ -36,6 +40,7 @@
 - [`get_game_role_dungoen` 获取角色团本记录 <sup>`vip`</sup>](#get_game_role_dungoen)
 - [`get_game_role_achieve` 获取角色成就数据 <sup>`vip`</sup>](#get_game_role_achieve)
 - [`get_game_role_serendipity` 获取角色奇遇数据 <sup>`vip`</sup>](#get_game_role_serendipity)
+- [`get_game_world_serendipity` 获取世界奇遇数据 <sup>`vip`</sup>](#get_game_world_serendipity)
 
 ### `push_subscribe`
 
@@ -766,12 +771,12 @@
 
 ###### season <sup>`4`</sup>
 
-| 字段名         | 数据类型    | 说明   |
-|-------------|---------|------|
-| `pvpInt`    | int     | 模式   |
-| `matchDate` | int(10) | 匹配日期 |
-| `mmr`       | int     | 评分   |
-| `winRate`   | float   | 胜率比  |
+| 字段名         | 数据类型      | 说明   |
+|-------------|-----------|------|
+| `pvpInt`    | int       | 模式   |
+| `matchDate` | int(10)   | 匹配日期 |
+| `mmr`       | int       | 评分   |
+| `winRate`   | int,float | 胜率比  |
 
 ### `get_game_role_dungoen`
 
@@ -786,10 +791,30 @@
 
 #### 响应数据
 
-| 字段名             | 数据类型   | 说明     |
-|-----------------|--------|--------|
-| `gameRegion`    | string | 游戏大区   |
-| `mianServer`    | string | 主服务器   |
+###### 参见 [`get_game_role_info` 获取角色信息](#get_game_role_info) 响应数据，相比增加以下数据。
+
+| 字段名     | 数据类型                   | 说明  |
+|---------|------------------------|-----|
+| `list`  | array[] <sup>`1`</sup> | 列表  |
+| `count` | int                    | 计数  |
+
+###### list <sup>`1`</sup>
+
+| 字段名            | 数据类型                   | 说明     |
+|----------------|------------------------|--------|
+| `mapName`      | string                 | 副本地图   |
+| `mapType`      | string                 | 副本模式   |
+| `bossCount`    | int                    | BOSS总数 |
+| `bossFinished` | int                    | 击败数量   |
+| `bossProgress` | array[] <sup>`2`</sup> | 通关进度   |
+
+###### bossProgress <sup>`2`</sup>
+
+| 字段名          | 数据类型   | 说明     |
+|--------------|--------|--------|
+| `name`       | string | BOSS昵称 |
+| `progressId` | int    | BOSS关卡 |
+| `isFinished` | bool   | 是否击败   |
 
 ### `get_game_role_achieve`
 
@@ -797,17 +822,27 @@
 
 #### 参数
 
-| 字段名        | 数据类型   | 默认值 | 说明     | 必须  |
-|------------|--------|-----|--------|:---:|
-| `server`   | string | -   | 服务器    |  √  |
-| `roleName` | string | -   | 角色昵称   |  √  |
+| 字段名          | 数据类型   | 默认值     | 说明   | 必须  |
+|--------------|--------|---------|------|:---:|
+| `server`     | string | -       | 服务器  |  √  |
+| `roleName`   | string | -       | 角色昵称 |  √  |
+| `smallClass` | string | -       | 成就系列 |  √  |
+| `isScholars` | bool   | `false` | 五甲成就 |     |
 
 #### 响应数据
 
-| 字段名             | 数据类型   | 说明     |
-|-----------------|--------|--------|
-| `gameRegion`    | string | 游戏大区   |
-| `mianServer`    | string | 主服务器   |
+###### 参见 [`get_game_role_info` 获取角色信息](#get_game_role_info) 响应数据，相比增加以下数据。
+
+| 字段名     | 数据类型                   | 说明  |
+|---------|------------------------|-----|
+| `list`  | array[] <sup>`1`</sup> | 列表  |
+| `count` | int                    | 计数  |
+
+###### list <sup>`1`</sup>
+
+:::danger
+太懒了,字段太多不想写)___   请参考返回的JSON.
+:::
 
 ### `get_game_role_serendipity`
 
@@ -815,14 +850,80 @@
 
 #### 参数
 
-| 字段名        | 数据类型   | 默认值 | 说明     | 必须  |
-|------------|--------|-----|--------|:---:|
-| `server`   | string | -   | 服务器    |  √  |
-| `roleName` | string | -   | 角色昵称   |  √  |
+| 字段名              | 数据类型   | 默认值     | 说明   | 必须  |
+|------------------|--------|---------|------|:---:|
+| `server`         | string | -       | 服务器  |  √  |
+| `roleName`       | string | -       | 角色昵称 |  √  |
+| `allSerendipity` | bool   | `false` | 所有奇遇 |     |
 
 #### 响应数据
 
-| 字段名             | 数据类型   | 说明     |
-|-----------------|--------|--------|
-| `gameRegion`    | string | 游戏大区   |
-| `mianServer`    | string | 主服务器   |
+###### 参见 [`get_game_role_info` 获取角色信息](#get_game_role_info) 响应数据，相比增加以下数据。
+
+| 字段名     | 数据类型                   | 说明  |
+|---------|------------------------|-----|
+| `list`  | array[] <sup>`1`</sup> | 列表  |
+| `count` | int                    | 计数  |
+
+###### list <sup>`1`</sup>
+
+| 字段名           | 数据类型    | 说明   |
+|---------------|---------|------|
+| `gameRegion`  | string  | 游戏大区 |
+| `mianServer`  | string  | 主服务器 |
+| `serendipity` | string  | 奇遇名称 |
+| `triggerTime` | int(10) | 触发时间 |
+| `yellow`      | bool    | 黄字   |
+| `sparse`      | bool    | 绝世   |
+| `rare`        | bool    | 珍奇   |
+
+### `get_game_world_serendipity`
+
+##### 获取世界奇遇数据
+
+#### 参数
+
+| 字段名           | 数据类型        | 默认值  | 说明          | 必须  |
+|---------------|-------------|------|-------------|:---:|
+| `server`      | string      | -    | 服务器         |  √  |
+| `serendipity` | string      | -    | 奇遇名称(严格.黄字) |     |
+| `recordLimit` | int(20-50)  | `20` | 奇遇记录数量      |     |
+| `collectDays` | int(90-180) | `90` | 奇遇统计天数      |     |
+
+#### 响应数据
+
+| 字段名     | 数据类型                   | 说明  |
+|---------|------------------------|-----|
+| `list`  | array[] <sup>`1`</sup> | 列表  |
+| `count` | int                    | 计数  |
+
+###### list <sup>`1`</sup>
+
+| 字段名           | 数据类型                      | 说明     |
+|---------------|---------------------------|--------|
+| `gameRegion`  | string                    | 游戏大区   |
+| `mianServer`  | string                    | 主服务器   |
+| `serendipity` | string                    | 奇遇名称   |
+| `recordList`  | array[:50] <sup>`2`</sup> | 奇遇记录   |
+| `days7Count`  | int                       | 7天统计数  |
+| `days30Count` | int                       | 30天统计数 |
+| `collectInfo` | array <sup>`3`</sup>      | 统计信息   |
+| `yellow`      | bool                      | 黄字     |
+| `sparse`      | bool                      | 绝世     |
+| `rare`        | bool                      | 珍奇     |
+
+###### recordList <sup>`2`</sup>
+
+| 字段名           | 数据类型    | 说明   |
+|---------------|---------|------|
+| `roleName`    | string  | 角色昵称 |
+| `triggerTime` | int(10) | 触发时间 |
+
+###### collectInfo <sup>`3`</sup>
+
+| 字段名     | 数据类型     | 说明   |
+|---------|----------|------|
+| `days`  | int      | 统计天数 |
+| `count` | int      | 统计数  |
+| `am`    | string[] | 节点值  |
+| `pm`    | string[] | 节点值  |
