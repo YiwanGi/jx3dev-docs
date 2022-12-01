@@ -23,12 +23,10 @@
 - [`get_spectrum_data` 获取器物谱数据](#get_spectrum_data)
 - [`get_career_macro` 获取职业宏命令](#get_career_macro)
 - [`get_career_equip` 获取职业配装 <sup>`plan`</sup>](#get_career_equip)
-- [`get_career_elevate` 获取职业小吃小药 <sup>`dev`</sup>](#get_career_elevate)
-- [`get_edition_hasten` 获取版本加速信息 <sup>`dev`</sup>](#get_edition_hasten)
-- [`get_foal_find_point` 获取马驹刷新点位 <sup>`dev`</sup>](#get_foal_find_point)
-- [`get_random_saohua` 获取随机骚话 <sup>`dev`</sup>](#get_random_saohua)
+- [`get_career_elevate` 获取职业小药](#get_career_elevate)
+- [`get_random_saohua` 获取随机骚话](#get_random_saohua)
 - [`get_exam_answer` 获取科举答案](#get_exam_answer)
-- [`get_garden_flower` 获取家园花价 <sup>`dev`</sup>](#get_garden_flower)
+- [`get_garden_flower` 获取家园花价](#get_garden_flower)
 - [`get_market_prices` 获取集市物价 <sup>`plan`</sup>](#get_market_prices)
 - [`get_school_tactics` 获取门派阵法](#get_school_tactics)
 - [`get_jjc_ranking_list` 获取JJC排行 <sup>`vip`</sup>](#get_jjc_ranking_list)
@@ -416,11 +414,11 @@
 
 ###### list <sup>`1`</sup>
 
-| 字段名         | 数据类型                 | 说明   |
-|-------------|----------------------|------|
-| `school`    | string               | 门派名称 |
-| `xingfa`    | string               | 心法名称 |
-| `macroInfo` | array <sup>`2`</sup> | 宏信息  |
+| 字段名         | 数据类型                 | 说明    |
+|-------------|----------------------|-------|
+| `school`    | string               | 门派名称  |
+| `xingfa`    | string               | 心法名称  |
+| `macroInfo` | array <sup>`2`</sup> | 宏命令信息 |
 
 ###### macroInfo <sup>`2`</sup>
 
@@ -446,6 +444,57 @@
 |------------|--------|------|
 | `version`  | string | 数据版本 |
 | `sequence` | string | 数据序列 |
+
+### `get_career_elevate`
+
+##### 获取职业小药
+
+#### 参数
+
+| 字段名      | 数据类型   | 默认值 | 说明                 | 必须  |
+|----------|--------|-----|--------------------|:---:|
+| `xingfa` | string | -   | 心法名称(严格.不含坦克和治疗心法) |     |
+
+#### 响应数据
+
+| 字段名     | 数据类型                   | 说明  |
+|---------|------------------------|-----|
+| `list`  | array[] <sup>`1`</sup> | 列表  |
+| `count` | int                    | 计数  |
+
+###### list <sup>`1`</sup>
+
+| 字段名           | 数据类型                 | 说明   |
+|---------------|----------------------|------|
+| `school`      | string               | 门派名称 |
+| `xingfa`      | string               | 心法名称 |
+| `elevateInfo` | array <sup>`2`</sup> | 小药信息 |
+
+###### elevateInfo <sup>`2`</sup>
+
+| 字段名             | 数据类型   | 说明   |
+|-----------------|--------|------|
+| `enhanceFood`   | string | 增强食品 |
+| `enhanceDrug`   | string | 增强药品 |
+| `auxiliaryFood` | string | 辅助食品 |
+| `auxiliaryDrug` | string | 辅助药品 |
+
+### `get_random_saohua`
+
+##### 获取随机骚话
+
+#### 参数
+
+| 字段名     | 数据类型 | 默认值     | 说明   | 必须  |
+|---------|------|---------|------|:---:|
+| `short` | bool | `false` | 较为简短 |     |
+
+#### 响应数据
+
+| 字段名     | 数据类型                   | 说明  |
+|---------|------------------------|-----|
+| `list`  | array[] <sup>`1`</sup> | 列表  |
+| `count` | int                    | 计数  |
 
 ### `get_exam_answer`
 

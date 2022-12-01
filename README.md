@@ -1,4 +1,4 @@
-# jx3dev-docs
+# jx3dev-docs（暂缓）
 
 此仓库为 [JX3DEV](https://www.jx3dev.com/) 的开发文档。
 
