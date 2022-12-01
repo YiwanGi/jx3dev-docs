@@ -19,7 +19,10 @@ export default defineUserConfig({
         home: '/', // 首页的路径。
         navbar: [
             {text: 'Trades', link: 'https://www.jx3dev.com/?qq=1100001011010110111001000111111&hex=binary'},
-            {text: '特别说明：由于项目未正式上线，仅供测试使用，API接口随时可能会进行调整。(请使用 test.jx3dev.com 接入服务)', link: '#'},
+            {
+                text: '特别说明：由于项目未正式上线，仅供测试使用，API接口随时可能会进行调整。(请使用 test.jx3dev.com 接入服务)',
+                link: '#'
+            },
             {text: 'Dev必读', children: ['/ErrorCode-ws.md', '/ErrorCode-http.md']},
             {text: 'Api接口', children: ['/Unlimited.md', '/APIinterface.md', '/Template.md']},
             {text: 'See更多', children: ['/Subscribe.md', '/Smsdirect.md', '/Demonstration.md', '/Customized.md']},

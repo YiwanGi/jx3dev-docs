@@ -21,6 +21,6 @@ cd jx3dev-docs
 npm install
 # 安装依赖
 
-npm run docs:build
+npm run docs:dev
 # 开始写作
 ```
