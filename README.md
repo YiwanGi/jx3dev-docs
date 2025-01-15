@@ -2,7 +2,7 @@
 
 此仓库为 [JX3DEV](https://www.jx3dev.com/) 的开发文档。
 
-查看文档：<https://docs.jx3dev.com/>
+查看文档：<https://yiwangi.github.io/jx3dev-docs/>
 
 ## 完善文档
 
